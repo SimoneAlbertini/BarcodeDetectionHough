@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="90">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>include/ArtelabDataset.hpp</itemPath>
+      <itemPath>include/HoughTransform.hpp</itemPath>
+      <itemPath>include/MLP.hpp</itemPath>
+      <itemPath>include/TimeCounter.hpp</itemPath>
+      <itemPath>include/WueinsterDataset.hpp</itemPath>
+      <itemPath>include/accuracy.hpp</itemPath>
+      <itemPath>include/detection.hpp</itemPath>
+      <itemPath>include/draw_and_show.hpp</itemPath>
+      <itemPath>include/hough_histogram.hpp</itemPath>
+      <itemPath>include/make_patterns.hpp</itemPath>
+      <itemPath>include/stats.hpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/ArtelabDataset.cpp</itemPath>
+      <itemPath>src/HoughTransform.cpp</itemPath>
+      <itemPath>src/MLP.cpp</itemPath>
+      <itemPath>src/TimeCounter.cpp</itemPath>
+      <itemPath>src/WueinsterDataset.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>results.txt</itemPath>
+    </logicalFolder>
+    <itemPath>main.cpp</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>Artelibs</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_chrono</linkerLibLibItem>
+            <linkerLibLibItem>opencv_core</linkerLibLibItem>
+            <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
+            <linkerLibLibItem>opencv_ml</linkerLibLibItem>
+            <linkerLibLibItem>opencv_imgproc</linkerLibLibItem>
+            <linkerLibLibItem>opencv_nonfree</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="include/ArtelabDataset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HoughTransform.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/WueinsterDataset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/accuracy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/detection.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/draw_and_show.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/hough_histogram.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/make_patterns.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/stats.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ArtelabDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HoughTransform.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="include/ArtelabDataset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HoughTransform.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/WueinsterDataset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/accuracy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/detection.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/draw_and_show.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/hough_histogram.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/make_patterns.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/stats.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ArtelabDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HoughTransform.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

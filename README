@@ -53,7 +53,9 @@ Command line arguments:
 
 Dataset:
 	The default dataset directory contains some images.
-	You can download the full dataset at http://artelab.dicom.uninsubria.it/downloads.html
+	You can download the full dataset at
+		http://artelab.dicom.uninsubria.it/downloads/datasets/barcode/hough_barcode_1d/hough_barcode_1d.html
+	You should use the dataset no.2 plain.
 
 Example:
 

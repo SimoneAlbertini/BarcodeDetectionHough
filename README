@@ -15,7 +15,7 @@ Just type 'make' in the root directory of the project.
 The executable will be placed there if no errors occur.
 
 This package is meant to be compiled and used in a linux environment.
-Anyway, should be streightforward to adapt it to different architectures as both the OpenCv and boost library are cross-platform. 
+Anyway, it should be straightforward to adapt it to different architectures as both the OpenCv and Boost libraries are cross-platform. 
 In order to facilitate it, the shared library linked by the makefile are:
 ° boost_filesystem
 ° boost_system
@@ -93,6 +93,6 @@ Bibtex:
 	@inproceedings{zamberletti2013acpr,
 		author = "Alessandro Zamberletti and Ignazio Gallo and Simone Albertini",
 		title = "Robust Angle Invariant 1D Barcode Detection",
-		booktitle = "The 2nd Asian Conference on Pattern Recognition (ACPR)",
+		booktitle = "In proceedings of the 2nd Asian Conference on Pattern Recognition (ACPR)",
 		year = "2013"
 	}

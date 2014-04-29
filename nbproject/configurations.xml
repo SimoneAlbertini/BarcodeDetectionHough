@@ -6,31 +6,34 @@
                    projectFiles="true">
       <itemPath>include/ArtelabDataset.hpp</itemPath>
       <itemPath>include/HoughTransform.hpp</itemPath>
+      <itemPath>include/ImageProcessor.hpp</itemPath>
       <itemPath>include/MLP.hpp</itemPath>
-      <itemPath>include/TimeCounter.hpp</itemPath>
-      <itemPath>include/WueinsterDataset.hpp</itemPath>
       <itemPath>include/accuracy.hpp</itemPath>
       <itemPath>include/detection.hpp</itemPath>
-      <itemPath>include/draw_and_show.hpp</itemPath>
+      <itemPath>include/draw_hist.hpp</itemPath>
       <itemPath>include/hough_histogram.hpp</itemPath>
-      <itemPath>include/make_patterns.hpp</itemPath>
-      <itemPath>include/stats.hpp</itemPath>
+      <itemPath>include/mlp_threshold.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/ArtelabDataset.cpp</itemPath>
       <itemPath>src/HoughTransform.cpp</itemPath>
+      <itemPath>src/ImageProcessor.cpp</itemPath>
       <itemPath>src/MLP.cpp</itemPath>
-      <itemPath>src/TimeCounter.cpp</itemPath>
-      <itemPath>src/WueinsterDataset.cpp</itemPath>
       <itemPath>src/accuracy.cpp</itemPath>
+      <itemPath>src/detection.cpp</itemPath>
+      <itemPath>src/draw_hist.cpp</itemPath>
+      <itemPath>src/hough_histogram.cpp</itemPath>
+      <itemPath>src/mlp_threshold.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="utils" projectFiles="true">
       <itemPath>utils-3rdparty/DirectoryInfo.cpp</itemPath>
       <itemPath>utils-3rdparty/DirectoryInfo.hpp</itemPath>
       <itemPath>utils-3rdparty/FileInfo.cpp</itemPath>
       <itemPath>utils-3rdparty/FileInfo.hpp</itemPath>
+      <itemPath>utils-3rdparty/TimeCounter.cpp</itemPath>
+      <itemPath>utils-3rdparty/TimeCounter.hpp</itemPath>
       <itemPath>utils-3rdparty/utils.cpp</itemPath>
       <itemPath>utils-3rdparty/utils.hpp</itemPath>
     </logicalFolder>
@@ -46,8 +49,6 @@
       <itemPath>Makefile</itemPath>
       <itemPath>results.txt</itemPath>
     </logicalFolder>
-    <itemPath>src/ImageProcessor.cpp</itemPath>
-    <itemPath>include/ImageProcessor.hpp</itemPath>
     <itemPath>main.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -87,21 +88,15 @@
       </item>
       <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/WueinsterDataset.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/accuracy.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/detection.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/draw_and_show.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/draw_hist.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/hough_histogram.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/make_patterns.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/stats.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/mlp_threshold.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -113,11 +108,15 @@
       </item>
       <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/accuracy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/detection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/draw_hist.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/hough_histogram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mlp_threshold.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils-3rdparty/DirectoryInfo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -126,6 +125,10 @@
       <item path="utils-3rdparty/FileInfo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils-3rdparty/FileInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="utils-3rdparty/utils.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -160,21 +163,15 @@
       </item>
       <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/WueinsterDataset.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/accuracy.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/detection.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/draw_and_show.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/draw_hist.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/hough_histogram.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/make_patterns.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/stats.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/mlp_threshold.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -186,11 +183,15 @@
       </item>
       <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/accuracy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/detection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/draw_hist.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/hough_histogram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mlp_threshold.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils-3rdparty/DirectoryInfo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -199,6 +200,10 @@
       <item path="utils-3rdparty/FileInfo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils-3rdparty/FileInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="utils-3rdparty/utils.cpp" ex="false" tool="1" flavor2="0">
       </item>

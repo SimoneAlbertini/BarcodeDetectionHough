@@ -2,6 +2,8 @@
 #ifndef IMAGEPROCESSOR_HPP
 #define	IMAGEPROCESSOR_HPP
 
+#include <opencv2/core/core.hpp>
+
 #include "MLP.hpp"
 #include "ArtelabDataset.hpp"
 #include "accuracy.hpp"
@@ -26,6 +28,8 @@ namespace artelab
         cv::Size _winsize;
         bool _show;
         DirectoryInfo _output;
+        
+        void show_image(std::string name, cv::Mat img);
     };
 
 }

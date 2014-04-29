@@ -1,9 +1,3 @@
-/* 
- * File:   ImageProcessor.hpp
- * Author: simone
- *
- * Created on April 29, 2014, 10:13 AM
- */
 
 #ifndef IMAGEPROCESSOR_HPP
 #define	IMAGEPROCESSOR_HPP

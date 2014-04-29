@@ -1,9 +1,3 @@
-/* 
- * File:   FileInfo.h
- * Author: ignazio
- *
- * Created on May 16, 2012, 2:28 PM
- */
 
 #ifndef FILEINFO_H
 #define	FILEINFO_H

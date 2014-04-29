@@ -1,9 +1,3 @@
-/* 
- * File:   detection.hpp
- * Author: simone
- *
- * Created on 28 maggio 2013, 14.40
- */
 
 #ifndef DETECTION_HPP
 #define	DETECTION_HPP

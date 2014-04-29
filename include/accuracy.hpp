@@ -1,9 +1,3 @@
-/* 
- * File:   accuracy.hpp
- * Author: simone
- *
- * Created on 30 maggio 2013, 16.59
- */
 
 #ifndef ACCURACY_HPP
 #define	ACCURACY_HPP

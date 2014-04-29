@@ -1,9 +1,3 @@
-/* 
- * File:   DirectoryInfo.h
- * Author: ignazio
- *
- * Created on May 16, 2012, 3:17 PM
- */
 
 #ifndef DIRECTORYINFO_H
 #define	DIRECTORYINFO_H

@@ -1,9 +1,3 @@
-/* 
- * File:   draw_and_show.hpp
- * Author: simone
- *
- * Created on 24 maggio 2013, 12.55
- */
 
 #ifndef DRAW_AND_SHOW_HPP
 #define	DRAW_AND_SHOW_HPP

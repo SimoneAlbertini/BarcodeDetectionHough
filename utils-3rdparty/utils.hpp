@@ -1,9 +1,3 @@
-/* 
- * File:   stringUtils.h
- * Author: ignazio
- *
- * Created on April 24, 2012, 11:12 AM
- */
 
 #ifndef STRINGUTILS_H
 #define	STRINGUTILS_H
@@ -22,6 +16,8 @@ namespace artelab
     bool file_exists(std::string filename);
     
     cv::Mat rotate_image(cv::Mat img, int angle, int size_factor=1);
+    
+    std::string tostring(double i);
     
 }
 #endif	/* STRINGUTILS_H */

@@ -19,6 +19,7 @@ using std::vector;
 namespace po = boost::program_options;
 
 bool display = false;
+bool quiet = false;
 string datasetdir = "dataset";
 string netfile = "net61x3.net";
 string outdir = "";
@@ -48,9 +49,10 @@ int main(int argc, char** argv)
     desc.add_options()
         ("help", "print help")
         ("dataset,d",       po::value<string>()->default_value(datasetdir),      "dataset directory")
-        ("show,s",                                                               "show intermediate images")
         ("output,o",        po::value<string>()->default_value(outdir),          "if specified, intermediate images are saved there")
         ("whitelist,w",     po::value<string>()->default_value(whitelist),       "list of image names to process")
+        ("show,s",                                                               "show intermediate images")
+        ("quiet,q",                                                              "suppress verbose output")
     ;
 
     po::variables_map vm;
@@ -67,12 +69,13 @@ int main(int argc, char** argv)
     outdir = vm["output"].as<string>();
     whitelist = vm["whitelist"].as<string>();
     display = vm.count("show") > 0;
+    quiet = vm.count("quiet") > 0;
     
     DirectoryInfo dataset_dir(datasetdir);
     
     ArtelabDataset dataset(dataset_dir);
     dataset.load_dataset();
-    cout << "Dataset Loaded: " << dataset.count() << " Images" << endl;
+    if(!quiet) cout << "Dataset Loaded: " << dataset.count() << " Images" << endl;
     
     MLP mlp; mlp.load(netfile);
     
@@ -89,7 +92,7 @@ int main(int argc, char** argv)
     int count = 0;
     cv::Mat jaccard_hist = cv::Mat::zeros(10, 1, CV_32F);
     
-    ImageProcessor pr(netfile, win_size, outdir, display);
+    ImageProcessor pr(netfile, win_size, outdir, quiet, display);
     
     for(it = images.begin(); it != images.end(); it++)
     {
@@ -98,9 +101,7 @@ int main(int argc, char** argv)
             continue;
         }
         
-        cout << it->first << " "  << flush;
-        results res = pr.process(it->second);
-        cout << endl;
+        results res = pr.process(it->first, it->second);
         
         accuracy += res.jaccard;
         time += res.time;
@@ -118,9 +119,10 @@ int main(int argc, char** argv)
         
     }
     
-    cout << "Number of images: " << count << endl
+    cout << endl 
+         << "Number of images: " << count << endl
          << "TOTAL ACCURACY (jaccard): " << accuracy/count << endl
-         << "TOTAL ACCURACY (jaccard): " << jaccard_hist/count << endl
+         << "TOTAL ACCURACY BY THRESHOLD (jaccard): " << jaccard_hist/count << endl
          << "Average time (sec): " << time/count << endl;
     
     return EXIT_SUCCESS;

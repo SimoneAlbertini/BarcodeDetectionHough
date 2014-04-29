@@ -42,4 +42,11 @@ namespace artelab
         cv::warpAffine(img, out, rotation_mat, size);
         return out;
     }
+    
+    std::string tostring(double d)
+    {
+        std::ostringstream ss;
+        ss << d;
+        return ss.str();
+    }
 }

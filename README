@@ -42,6 +42,8 @@ Command line arguments:
 			 
 	-s or --show: show in a GUI some intermadiate images taken at each step of the algorihtm.
 		      Press the spacebar to continue to the next image.
+
+	-q or --quiet: no verbose output
 	
 	-o or --output: set an existing directory to save some intermediate result.
 

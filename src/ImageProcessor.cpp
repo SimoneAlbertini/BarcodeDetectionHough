@@ -2,6 +2,7 @@
 #include <boost/foreach.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <iomanip>
 
 #include "HoughTransform.hpp"
 #include "mlp_threshold.hpp"
@@ -16,12 +17,13 @@
 namespace artelab
 {
 
-    ImageProcessor::ImageProcessor(std::string mlp_file, cv::Size win_size, std::string outdir, bool show)
+    ImageProcessor::ImageProcessor(std::string mlp_file, cv::Size win_size, std::string outdir, bool quiet, bool show) :
+        _show(show),
+        _quiet(quiet),
+        _winsize(win_size)
     {
         _mlp.load(mlp_file);
-        _winsize = win_size;
         _output = DirectoryInfo(outdir);
-        _show = show;
     }
 
     ImageProcessor::~ImageProcessor() 
@@ -118,7 +120,7 @@ namespace artelab
         return out;
     }
     
-    results ImageProcessor::process(ArtelabDataset::barcode_image bcimage)
+    results ImageProcessor::process(std::string name, ArtelabDataset::barcode_image bcimage)
     {
         cv::Mat img_orig = cv::imread(bcimage.original.fullName(), CV_LOAD_IMAGE_COLOR);
         cv::Mat img_truth = cv::imread(bcimage.detection_gt.fullName(), CV_LOAD_IMAGE_GRAYSCALE);
@@ -139,8 +141,6 @@ namespace artelab
 
         // find angle
         double angle = max_angle_hist(get_histogram(img_neural, HIST_ROW));
-
-        std::cout << "Angle " << angle << " "  << std::flush;
 
         // lines from canny using probabilistc hough
         const int tolerance = 3;
@@ -202,11 +202,17 @@ namespace artelab
 
         // Measuring accuracy
         results res = measure_results(img_detection_mask, img_truth, tc);
-        std::cout << " Accuracy: " << res.jaccard;
-        std::cout << " Time: " << res.time << std::flush;
-
-        /* show results */
-
+        
+        // verbose output
+        if(!_quiet)
+        {
+            std::cout << std::setw(15) << std::left << name;
+            std::cout << std::setw(11) << std::left << ("Angle " + tostring(angle));
+            std::cout << std::setw(20) << std::left << ("Accuracy: " + tostring(res.jaccard));
+            std::cout << std::setw(6) << std::left << ("Time: " + tostring(res.time)) << std::endl;
+        }
+        
+        // show results
         show_image("Prob Hough", line_image);
         show_image("histograms smooth", feature_with_hist_smooth);
         show_image("histograms projection", img_hist_projection);
@@ -216,45 +222,48 @@ namespace artelab
         show_image("Feature", feature_image);
         show_image("Canny", img_canny);
 
-        std::string name = bcimage.original.getName();
-        std::ostringstream ss;
+        // saving intermediate images
+        if(_output.fullPath() != "")
+        {
+            std::ostringstream ss;
 
-        // 1. Original
-        ss << name << "_1_original.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_orig);
+            // Original
+            ss << name << "_1_original.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_orig);
 
-        // 2. Hough accumulator
-        ss.str(""); ss.clear(); ss << name << "_2_accumulator.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), hough.get_hough_image());
+            // Hough accumulator
+            ss.str(""); ss.clear(); ss << name << "_2_accumulator.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), hough.get_hough_image());
 
-        // 3. Hough MLP threshold
-        img_neural = draw_histogram_on_image(get_histogram(img_neural, HIST_ROW, CV_32F), img_neural, cv::Scalar(0,0,255), HIST_ROW);
-        ss.str(""); ss.clear();; ss << name << "_3_thresh_mlp.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_neural);
+            // Hough MLP threshold
+            img_neural = draw_histogram_on_image(get_histogram(img_neural, HIST_ROW, CV_32F), img_neural, cv::Scalar(0,0,255), HIST_ROW);
+            ss.str(""); ss.clear();; ss << name << "_3_thresh_mlp.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_neural);
 
-        // 4. feature with histograms not processed
-        histograms_from_hough_lines(feature_image, row_hist, col_hist, false);
-        cv::Mat feature_with_hist = draw_histogram_on_image(row_hist, feature_image, cv::Scalar(0,0,255), HIST_ROW);
-        feature_with_hist = draw_histogram_on_image(col_hist, feature_with_hist, cv::Scalar(0,255,0), HIST_COL);
-        ss.str(""); ss.clear();; ss << name << "_4_hist.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), feature_with_hist);
+            // Feature with histograms not processed
+            histograms_from_hough_lines(feature_image, row_hist, col_hist, false);
+            cv::Mat feature_with_hist = draw_histogram_on_image(row_hist, feature_image, cv::Scalar(0,0,255), HIST_ROW);
+            feature_with_hist = draw_histogram_on_image(col_hist, feature_with_hist, cv::Scalar(0,255,0), HIST_COL);
+            ss.str(""); ss.clear();; ss << name << "_4_hist.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), feature_with_hist);
 
-        // 5. feature with processed histograms
-        ss.str(""); ss.clear();; ss << name << "_5_hist_smooth_thresh.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), feature_with_hist_smooth);
+            // Feature with processed histograms
+            ss.str(""); ss.clear();; ss << name << "_5_hist_smooth_thresh.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), feature_with_hist_smooth);
 
-        // 6. histogram projection
-        ss.str(""); ss.clear();; ss << name << "_6_hist_projection.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_hist_projection);
+            // Histogram projection
+            ss.str(""); ss.clear();; ss << name << "_6_hist_projection.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_hist_projection);
 
-        // 7. bounding boxes
-        ss.str(""); ss.clear();; ss << name << "_7_boxes.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_bb);
+            // Bounding boxes
+            ss.str(""); ss.clear();; ss << name << "_7_boxes.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_bb);
 
-        // Canny
-        ss.str(""); ss.clear(); ss << name << "_canny.png";
-        cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_canny);
-
+            // Canny
+            ss.str(""); ss.clear(); ss << name << "_canny.png";
+            cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_canny);
+        }
+        
         return res;
     }
 

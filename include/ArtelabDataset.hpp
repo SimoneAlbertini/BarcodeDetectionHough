@@ -1,15 +1,9 @@
-/* 
- * File:   BarcodeDataset.hpp
- * Author: simone
- *
- * Created on 27 maggio 2013, 14.33
- */
 
 #ifndef BARCODEDATASET_HPP
 #define	BARCODEDATASET_HPP
 
 #include <opencv2/core/core.hpp>
-#include <Artelibs/DirectoryInfo.h>
+#include "DirectoryInfo.hpp"
 
 class ArtelabDataset 
 {
@@ -18,9 +12,8 @@ public:
     typedef struct 
     {
         FileInfo original;
-        FileInfo canny;
         FileInfo detection_gt;
-    } barcode_images;
+    } barcode_image;
     
     ArtelabDataset(DirectoryInfo);
     ArtelabDataset(const ArtelabDataset& orig);
@@ -31,10 +24,10 @@ public:
     void load_dataset();
     int count();
     
-    std::map<std::string, barcode_images> get_barcodes();
+    std::map<std::string, barcode_image> get_barcodes();
     
     private:
-        std::map<std::string, barcode_images> _data;
+        std::map<std::string, barcode_image> _data;
         DirectoryInfo _base_dir;
 };
 

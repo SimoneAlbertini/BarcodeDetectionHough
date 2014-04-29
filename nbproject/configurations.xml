@@ -24,6 +24,15 @@
       <itemPath>src/MLP.cpp</itemPath>
       <itemPath>src/TimeCounter.cpp</itemPath>
       <itemPath>src/WueinsterDataset.cpp</itemPath>
+      <itemPath>src/accuracy.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f1" displayName="utils" projectFiles="true">
+      <itemPath>utils-3rdparty/DirectoryInfo.cpp</itemPath>
+      <itemPath>utils-3rdparty/DirectoryInfo.hpp</itemPath>
+      <itemPath>utils-3rdparty/FileInfo.cpp</itemPath>
+      <itemPath>utils-3rdparty/FileInfo.hpp</itemPath>
+      <itemPath>utils-3rdparty/utils.cpp</itemPath>
+      <itemPath>utils-3rdparty/utils.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -37,6 +46,8 @@
       <itemPath>Makefile</itemPath>
       <itemPath>results.txt</itemPath>
     </logicalFolder>
+    <itemPath>src/ImageProcessor.cpp</itemPath>
+    <itemPath>include/ImageProcessor.hpp</itemPath>
     <itemPath>main.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -51,25 +62,28 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
+            <pElem>utils-3rdparty</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>barcodedetection</output>
           <linkerLibItems>
-            <linkerLibLibItem>Artelibs</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibLibItem>boost_chrono</linkerLibLibItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>opencv_core</linkerLibLibItem>
             <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
             <linkerLibLibItem>opencv_ml</linkerLibLibItem>
             <linkerLibLibItem>opencv_imgproc</linkerLibLibItem>
-            <linkerLibLibItem>opencv_nonfree</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="include/ArtelabDataset.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HoughTransform.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ImageProcessor.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -95,11 +109,27 @@
       </item>
       <item path="src/HoughTransform.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/ImageProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/accuracy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/DirectoryInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/DirectoryInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/FileInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/FileInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -126,6 +156,8 @@
       </item>
       <item path="include/HoughTransform.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/ImageProcessor.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/MLP.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/TimeCounter.hpp" ex="false" tool="3" flavor2="0">
@@ -150,11 +182,27 @@
       </item>
       <item path="src/HoughTransform.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/ImageProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/MLP.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/TimeCounter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/WueinsterDataset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/accuracy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/DirectoryInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/DirectoryInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/FileInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/FileInfo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils-3rdparty/utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

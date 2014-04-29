@@ -10,6 +10,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <boost/foreach.hpp>
+
 #define foreach BOOST_FOREACH
 
 cv::Mat resample_image(cv::Mat img, int ratio, int kernel_size)

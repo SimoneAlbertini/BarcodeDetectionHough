@@ -1,18 +1,10 @@
-/* 
- * File:   BarcodeDataset.cpp
- * Author: simone
- * 
- * Created on 27 maggio 2013, 14.33
- */
 
-#include <Artelibs/DirectoryInfo.h>
 #include <boost/foreach.hpp>
-#include <Artelibs/utils.h>
-#define foreach BOOST_FOREACH
-
+#include "DirectoryInfo.hpp"
+#include "utils.hpp"
 #include "ArtelabDataset.hpp"
 
-typedef ArtelabDataset::barcode_images image;
+#define foreach BOOST_FOREACH
 
 using std::string;
 using std::vector;
@@ -36,7 +28,6 @@ ArtelabDataset& ArtelabDataset::operator =(const ArtelabDataset& other)
 void ArtelabDataset::load_dataset()
 {
     const string orig_suffix = ".jpgbarcodeOrig.png";
-    const string canny_suffix = ".jpgbarcodeCanny.png";
     const string detection_suffix = ".png";
     DirectoryInfo content_dir = _base_dir.directoryCombine("Original");
     DirectoryInfo detection_dir = _base_dir.directoryCombine("Detection");
@@ -47,14 +38,12 @@ void ArtelabDataset::load_dataset()
     {
         string name = artelab::split(file.getNameWithoutExtension(), '.')[0];
         
-        std::ostringstream original_file, canny_file, detection_file;
+        std::ostringstream original_file, detection_file;
         original_file << name << orig_suffix;
-        canny_file << name << canny_suffix;
         detection_file << name << detection_suffix;
         
-        barcode_images data;
+        barcode_image data;
         data.original = content_dir.fileCombine(original_file.str());
-        data.canny = content_dir.fileCombine(canny_file.str());
         data.detection_gt = detection_dir.fileCombine(detection_file.str());
         
         if(!artelab::file_exists(data.original.fullName()) || !artelab::file_exists(data.detection_gt.fullName()))
@@ -74,7 +63,7 @@ int ArtelabDataset::count()
     return _data.size();
 }
 
-std::map<std::string, ArtelabDataset::barcode_images> ArtelabDataset::get_barcodes()
+std::map<std::string, ArtelabDataset::barcode_image> ArtelabDataset::get_barcodes()
 {
     return _data;
 }

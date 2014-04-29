@@ -1,9 +1,3 @@
-/* 
- * File:   MLP.h
- * Author: ignazio
- *
- * Created on May 25, 2013, 8:02 AM
- */
 
 #ifndef MLP_H
 #define	MLP_H
@@ -14,10 +8,9 @@
 class MLP 
 {
 public:
+    
     MLP();
     MLP(cv::Mat layers);
-    MLP(const MLP& orig);
-    MLP& operator=(const MLP& other);
     virtual ~MLP();
     
     void load(std::string file);

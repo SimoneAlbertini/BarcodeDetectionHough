@@ -1,0 +1,62 @@
+
+Requirements
+----
+
+° Any C++08 compiler (actually used g++ 4.8.1)
+° OpenCv 2.4.* with Qt 4 support enabled
+° Boost 1.53 or more recent builds
+
+
+
+Compile on Linux machine
+----
+
+Just type 'make' in the root directory of the project.
+The executable will be placed there if no errors occur.
+
+This package is meant to be compiled and used in a linux environment.
+Anyway, should be streightforward to adapt it to different architectures as both the OpenCv and boost library are cross-platform. 
+In order to facilitate it, the shared library linked by the makefile are:
+° boost_filesystem
+° boost_system
+° boost_chrono
+° boost_program_options
+° opencv_core
+° opencv_highgui
+° opencv_ml
+° opencv_imgproc
+
+If you encounter any problem check if the required libraries are installed in your system.
+
+
+
+Usage
+----
+
+Type './barcodedetection help' to print the help message.
+
+Command line arguments:
+	-d or --dataset: full path of the directory that contains the dataset. It must constain two subdirectories: 
+		 	 'Original' with the actual images, 'Detection' with the detection masks, all in png format.
+			 Detection masks are black images with white-filled bounding-boxes.
+			 
+	-s or --show: show in a GUI some intermadiate images taken at each step of the algorihtm.
+		      Press the spacebar to continue to the next image.
+	
+	-o or --output: set an existing directory to save some intermediate result.
+
+	-w or --whitelist: specity a text file containing the image names (one per line) you want to process from the dataset directory.
+			   Image names that do not match any element of the list are skipped.
+
+
+Acknowledgements and license
+----
+
+The condition are described in LICENSE.
+
+If you use this code, part of it or the dataset, please cite the following reference
+
+	Robust Angle Invariant 1D Barcode Detection
+	Alessandro Zamberletti, Ignazio Gallo and Simone Albertini
+	The 2nd Asian Conference on Pattern Recognition (ACPR)
+	Okinaja, Japan

@@ -8,6 +8,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string/trim.hpp>
+#include <boost/program_options.hpp>
 
 #include "TimeCounter.hpp"
 #include "HoughTransform.hpp"
@@ -19,22 +20,26 @@
 #include "ArtelabDataset.hpp"
 #include "detection.hpp"
 #include "accuracy.hpp"
-#include "WueinsterDataset.hpp"
+#include "utils.hpp"
 
 #define TO_RAD(degree) degree*M_PI/180
 #define foreach BOOST_FOREACH
+#define houghpoints HoughTransform::houghpoints
+#define barcodeimages ArtelabDataset::barcode_image
 
+using namespace artelab;
 using std::string;
 using std::cout;
 using std::flush;
 using std::endl;
 using std::vector;
+namespace po = boost::program_options;
 
-typedef HoughTransform::points houghpoints;
-//typedef WueinsterDataset::barcode_images barcodeimages;
-typedef ArtelabDataset::barcode_images barcodeimages;
-
-bool display = true;
+bool display = false;
+string datasetdir = "./dataset";
+string netfile = "net61x3.net";
+string outdir = "";
+string whitelist = "";
 
 void show_image(std::string name, cv::Mat img)
 {
@@ -43,17 +48,6 @@ void show_image(std::string name, cv::Mat img)
         cv::namedWindow(name);
         cv::imshow(name, img);
     }
-}
-
-cv::Mat rotate_image(cv::Mat img, int angle, int size_factor=1)
-{
-    cv::Mat out;
-    cv::Point2i center = cv::Point2i(img.cols / 2, img.rows / 2);
-    cv::Size size(img.cols* size_factor, img.rows*size_factor);
-    
-    cv::Mat rotation_mat = cv::getRotationMatrix2D(center, angle, 1);
-    cv::warpAffine(img, out, rotation_mat, size);
-    return out;
 }
 
 void draw_lines_at_angle(double angle, vector<cv::Vec4i> lines, cv::Mat& image, int tolerance=2)
@@ -147,7 +141,7 @@ results process_image(MLP& mlp, cv::Size win_size, barcodeimages bcimages)
     // find angle
     double angle = max_angle_hist(get_histogram(img_neural, HIST_ROW));
     
-    cout << "Angle " << angle << " "; cout.flush();
+    cout << "Angle " << angle << " "  << flush;
    
     // lines from canny using probabilistc hough
     const int tolerance = 3;
@@ -165,7 +159,7 @@ results process_image(MLP& mlp, cv::Size win_size, barcodeimages bcimages)
     cv::Mat feature_image;
     feature_image = cv::Mat::zeros(img_canny.size(), CV_8U);
     draw_lines_at_angle((int(angle+0.5) + 90) % 180, lines, feature_image, tolerance);
-    feature_image = rotate_image(feature_image, angle);
+    feature_image = artelab::rotate_image(feature_image, angle);
     
     //Histograms for detection
     cv::Mat row_hist, col_hist,feature_with_hist_smooth;
@@ -176,9 +170,9 @@ results process_image(MLP& mlp, cv::Size win_size, barcodeimages bcimages)
     // project histograms
     cv::Mat img_hist_projection = project_histograms(row_hist, col_hist);
     
-    // crop image with projected mask and magic threshold
+    // crop image with projected mask and threshold
     cv::Mat bb_mask;
-    bb_mask = rotate_image(img_hist_projection, -angle);
+    bb_mask = artelab::rotate_image(img_hist_projection, -angle);
     double min, max;
     cv::minMaxLoc(bb_mask, &min, &max);
     cv::threshold(bb_mask, bb_mask, int(0.3*max), 1, cv::THRESH_BINARY);
@@ -195,13 +189,13 @@ results process_image(MLP& mlp, cv::Size win_size, barcodeimages bcimages)
         // BB for impression on original image
         cv::Mat bb = cv::Mat::zeros(img_bb.size(), CV_8U);
         cv::rectangle(bb, r, cv::Scalar(255), 2);
-        bb = rotate_image(bb, -angle);
+        bb = artelab::rotate_image(bb, -angle);
         img_bb.setTo(cv::Scalar(0,0,255), bb);
         
         // BB for measuring accuracy
         cv::Mat bb_fill = cv::Mat::zeros(img_orig.size(), CV_8U);
         cv::rectangle(bb_fill, r, cv::Scalar(255), -1);
-        bb_fill = rotate_image(bb_fill, -angle);
+        bb_fill = artelab::rotate_image(bb_fill, -angle);
         img_detection_mask.setTo(cv::Scalar(255), bb_fill);
     }
     
@@ -284,41 +278,45 @@ vector<string> imagenames_to_process(FileInfo file)
 }
 
 int main(int argc, char** argv) 
-{   
-    DirectoryInfo dataset_dir_arte("/home/simone/Dataset/Barcodes/barcode-hough");
-    DirectoryInfo dataset_dir_wue("/home/simone/Dataset/Barcodes/Wueinster");
-    FileInfo mlp_path("net61x3.net");
+{   po::options_description desc("Usage");
+    desc.add_options()
+        ("help", "print help")
+        ("dataset,d",       po::value<string>()->default_value(datasetdir),        "dataset directory")
+        ("show,s",                                                               "show intermediate images")
+        ("output,o",        po::value<string>()->default_value(outdir),            "if specified, intermediate images are saved there")
+        ("whitelist,w",     po::value<string>()->default_value(whitelist),            "if specified, intermediate images are saved there")
+    ;
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);    
+
+    if (vm.count("help"))
+    {
+        cout << desc << endl;
+        return EXIT_SUCCESS;
+    }
     
-    //WueinsterDataset dataset(dataset_dir_wue);
+    datasetdir = vm["dataset"].as<string>();
+    whitelist = vm["whitelist"].as<string>();
+    display = vm.count("show") > 0;
+    
+    DirectoryInfo dataset_dir_arte(datasetdir);
+    
     ArtelabDataset dataset(dataset_dir_arte);
     dataset.load_dataset();
     cout << "Dataset Loaded: " << dataset.count() << " Images" << endl;
     
-    MLP mlp; mlp.load(mlp_path.fullName());
+    MLP mlp; mlp.load(netfile);
     
     cv::Size win_size(61, 3);
     
     std::map<string, barcodeimages> images = dataset.get_barcodes();
     std::map<string, barcodeimages>::iterator it;
     
-    vector<string> white_list; // = imagenames_to_process(FileInfo("pucci.txt"));
-    
-//    vector<FileInfo> names;
-//    names.push_back(FileInfo("2200458003693-01_N95-2592x1944_scaledTo640x480bilinear.png"));
-//    names.push_back(FileInfo("3182550402538-01_N95-2592x1944_scaledTo640x480bilinear.png"));
-//    names.push_back(FileInfo("4000286216979-01_N95-2592x1944_scaledTo640x480bilinear.png"));
-//    names.push_back(FileInfo("4000445116300-01_N95-2592x1944_scaledTo640x480bilinear.png"));
-//    names.push_back(FileInfo("4000680703266-02_N95-2592x1944_scaledTo640x480bilinear.png"));
-//    
-//    foreach(FileInfo ff, names)
-//    {
-//        barcodeimages imgs;
-//        imgs.original = ff;
-//        imgs.canny = FileInfo("nofile");
-//        process_image(mlp, win_size, imgs);
-//    }
-//    
-//    return 0;
+    vector<string> white_list;
+    if(whitelist != "") 
+        white_list = imagenames_to_process(FileInfo(whitelist));
     
     double accuracy = 0, time = 0;
     int count = 0;
@@ -327,12 +325,10 @@ int main(int argc, char** argv)
     {
         if(white_list.size() > 0 && std::find(white_list.begin(), white_list.end(), it->first) == white_list.end())
         {
-//            cout << it->first << " Skipped" << endl;
             continue;
         }
         
-        
-        cout << it->first << " "; cout.flush();
+        cout << it->first << " "  << flush;
         results res = process_image(mlp, win_size, it->second);
         cout << endl;
         
@@ -341,9 +337,9 @@ int main(int argc, char** argv)
         jaccard_hist += res.jaccard_hist;
         count++;
         
-        char c;
         if(display)
         {
+            char c;
             do
             {
                 c = cv::waitKey();
@@ -352,10 +348,10 @@ int main(int argc, char** argv)
         
     }
     
-    cout << "Number images: " << count << endl;
-    cout << endl << "TOTAL ACCURACY (jaccard): " << accuracy/count << endl;
-    cout << endl << "TOTAL ACCURACY (jaccard): " << jaccard_hist/count << endl;
-    cout << endl << "Average time (sec): " << time/count << endl;
+    cout << "Number of images: " << count << endl
+         << "TOTAL ACCURACY (jaccard): " << accuracy/count << endl
+         << "TOTAL ACCURACY (jaccard): " << jaccard_hist/count << endl
+         << "Average time (sec): " << time/count << endl;
     
     return EXIT_SUCCESS;
 }

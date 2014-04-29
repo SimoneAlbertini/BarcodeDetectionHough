@@ -14,12 +14,7 @@ class HoughTransform
 {
 public:
     
-    struct CmpPoint2i
-    {
-        bool operator()(cv::Point2i const& left, cv::Point2i const& right) const;
-    };
-    
-    typedef std::vector<cv::Point2i> points;
+    typedef std::vector<cv::Point2i> houghpoints;
     
     HoughTransform();
     HoughTransform(cv::Mat image, bool keep_locations=false);
@@ -33,13 +28,18 @@ public:
     cv::Mat get_hough_image(int threshold=0);
     cv::Size get_hough_space_size();
     uint get(int theta, int rho);
-    points get_points_at(int theta, int rho);
+    houghpoints get_points_at(int theta, int rho);
     
     cv::Mat hough_space;
     
 private:
     
-    typedef std::map<cv::Point2i, points, CmpPoint2i> locationsmap;
+    struct CmpPoint2i
+    {
+        bool operator()(cv::Point2i const& left, cv::Point2i const& right) const;
+    };
+    
+    typedef std::map<cv::Point2i, houghpoints, CmpPoint2i> locationsmap;
     
     bool _keep_loc;
     cv::Size _size;

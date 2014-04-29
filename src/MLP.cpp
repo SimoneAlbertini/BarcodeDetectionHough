@@ -1,9 +1,3 @@
-/* 
- * File:   MLP.cpp
- * Author: ignazio
- * 
- * Created on May 25, 2013, 8:02 AM
- */
 
 #include "MLP.hpp"
 
@@ -12,18 +6,6 @@ MLP::MLP() {}
 MLP::MLP(cv::Mat layers)
 {
     _model.create(layers, CvANN_MLP::SIGMOID_SYM, 1, 1);
-}
-
-
-MLP::MLP(const MLP& orig) 
-{
-    *this = orig;
-}
-
-MLP& MLP::operator =(const MLP& other) 
-{
-    _model = other._model;
-    return *this;
 }
 
 MLP::~MLP() {}

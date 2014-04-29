@@ -7,6 +7,7 @@
 #define foreach BOOST_FOREACH
 
 #include "MLP.hpp"
+#include "HoughTransform.hpp"
 
 cv::Mat make_patterns_given_neural(HoughTransform& hough, int angle, cv::Size img_size, cv::Mat mask)
 {
@@ -18,7 +19,7 @@ cv::Mat make_patterns_given_neural(HoughTransform& hough, int angle, cv::Size im
     cv::Mat patterns(0, 6, CV_32F);
     for(int rho=0; rho < h_size.width; rho++)
     {
-        HoughTransform::points points = hough.get_points_at(angle, rho);
+        HoughTransform::houghpoints points = hough.get_points_at(angle, rho);
         foreach(cv::Point2i p, points)
         if(mask.at<uchar>(angle, rho) > 0)
         {

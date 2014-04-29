@@ -8,8 +8,11 @@
 #include <boost/foreach.hpp>
 #include <iostream>
 #include <sstream>
-#define foreach BOOST_FOREACH
 #include "WueinsterDataset.hpp"
+#include "utils.hpp"
+#include "FileInfo.hpp"
+
+#define foreach BOOST_FOREACH
 
 using std::string;
 using std::vector;

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "utils.hpp"
 
 namespace artelab 
@@ -27,7 +28,18 @@ namespace artelab
     
     bool file_exists(std::string filename)
     {
-      std::ifstream ifile(filename.c_str());
-      return ifile;
+        std::ifstream ifile(filename.c_str());
+        return ifile;
+    }
+    
+    cv::Mat rotate_image(cv::Mat img, int angle, int size_factor)
+    {
+        cv::Mat out;
+        cv::Point2i center = cv::Point2i(img.cols / 2, img.rows / 2);
+        cv::Size size(img.cols* size_factor, img.rows*size_factor);
+
+        cv::Mat rotation_mat = cv::getRotationMatrix2D(center, angle, 1);
+        cv::warpAffine(img, out, rotation_mat, size);
+        return out;
     }
 }

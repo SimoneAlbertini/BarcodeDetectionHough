@@ -38,9 +38,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/ArtelabDataset.o \
 	${OBJECTDIR}/src/HoughTransform.o \
+	${OBJECTDIR}/src/ImageProcessor.o \
 	${OBJECTDIR}/src/MLP.o \
 	${OBJECTDIR}/src/TimeCounter.o \
-	${OBJECTDIR}/src/WueinsterDataset.o
+	${OBJECTDIR}/src/WueinsterDataset.o \
+	${OBJECTDIR}/src/accuracy.o \
+	${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o \
+	${OBJECTDIR}/utils-3rdparty/FileInfo.o \
+	${OBJECTDIR}/utils-3rdparty/utils.o
 
 
 # C Compiler Flags
@@ -57,45 +62,69 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lArtelibs -lboost_filesystem -lboost_system -lboost_chrono -lopencv_core -lopencv_highgui -lopencv_ml -lopencv_imgproc -lopencv_nonfree
+LDLIBSOPTIONS=-lboost_filesystem -lboost_system -lboost_chrono -lboost_program_options -lopencv_core -lopencv_highgui -lopencv_ml -lopencv_imgproc
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/barcodedetectionhough
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk barcodedetection
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/barcodedetectionhough: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/barcodedetectionhough ${OBJECTFILES} ${LDLIBSOPTIONS}
+barcodedetection: ${OBJECTFILES}
+	${LINK.cc} -o barcodedetection ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/src/ArtelabDataset.o: src/ArtelabDataset.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ArtelabDataset.o src/ArtelabDataset.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ArtelabDataset.o src/ArtelabDataset.cpp
 
 ${OBJECTDIR}/src/HoughTransform.o: src/HoughTransform.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/HoughTransform.o src/HoughTransform.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/HoughTransform.o src/HoughTransform.cpp
+
+${OBJECTDIR}/src/ImageProcessor.o: src/ImageProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ImageProcessor.o src/ImageProcessor.cpp
 
 ${OBJECTDIR}/src/MLP.o: src/MLP.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/MLP.o src/MLP.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/MLP.o src/MLP.cpp
 
 ${OBJECTDIR}/src/TimeCounter.o: src/TimeCounter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeCounter.o src/TimeCounter.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeCounter.o src/TimeCounter.cpp
 
 ${OBJECTDIR}/src/WueinsterDataset.o: src/WueinsterDataset.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/WueinsterDataset.o src/WueinsterDataset.cpp
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/WueinsterDataset.o src/WueinsterDataset.cpp
+
+${OBJECTDIR}/src/accuracy.o: src/accuracy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/accuracy.o src/accuracy.cpp
+
+${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o: utils-3rdparty/DirectoryInfo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o utils-3rdparty/DirectoryInfo.cpp
+
+${OBJECTDIR}/utils-3rdparty/FileInfo.o: utils-3rdparty/FileInfo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/FileInfo.o utils-3rdparty/FileInfo.cpp
+
+${OBJECTDIR}/utils-3rdparty/utils.o: utils-3rdparty/utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Iutils-3rdparty -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/utils.o utils-3rdparty/utils.cpp
 
 # Subprojects
 .build-subprojects:
@@ -103,7 +132,7 @@ ${OBJECTDIR}/src/WueinsterDataset.o: src/WueinsterDataset.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/barcodedetectionhough
+	${RM} barcodedetection
 
 # Subprojects
 .clean-subprojects:

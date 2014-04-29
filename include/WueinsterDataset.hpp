@@ -8,8 +8,8 @@
 #ifndef WUEINSTERDATASET_HPP
 #define	WUEINSTERDATASET_HPP
 
-#include <Artelibs/DirectoryInfo.h>
 #include <map>
+#include "DirectoryInfo.hpp"
 
 class WueinsterDataset {
 public:

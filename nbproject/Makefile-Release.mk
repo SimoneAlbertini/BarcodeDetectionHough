@@ -38,9 +38,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/ArtelabDataset.o \
 	${OBJECTDIR}/src/HoughTransform.o \
+	${OBJECTDIR}/src/ImageProcessor.o \
 	${OBJECTDIR}/src/MLP.o \
 	${OBJECTDIR}/src/TimeCounter.o \
-	${OBJECTDIR}/src/WueinsterDataset.o
+	${OBJECTDIR}/src/WueinsterDataset.o \
+	${OBJECTDIR}/src/accuracy.o \
+	${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o \
+	${OBJECTDIR}/utils-3rdparty/FileInfo.o \
+	${OBJECTDIR}/utils-3rdparty/utils.o
 
 
 # C Compiler Flags
@@ -82,6 +87,11 @@ ${OBJECTDIR}/src/HoughTransform.o: src/HoughTransform.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/HoughTransform.o src/HoughTransform.cpp
 
+${OBJECTDIR}/src/ImageProcessor.o: src/ImageProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ImageProcessor.o src/ImageProcessor.cpp
+
 ${OBJECTDIR}/src/MLP.o: src/MLP.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -96,6 +106,26 @@ ${OBJECTDIR}/src/WueinsterDataset.o: src/WueinsterDataset.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/WueinsterDataset.o src/WueinsterDataset.cpp
+
+${OBJECTDIR}/src/accuracy.o: src/accuracy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/accuracy.o src/accuracy.cpp
+
+${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o: utils-3rdparty/DirectoryInfo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o utils-3rdparty/DirectoryInfo.cpp
+
+${OBJECTDIR}/utils-3rdparty/FileInfo.o: utils-3rdparty/FileInfo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/FileInfo.o utils-3rdparty/FileInfo.cpp
+
+${OBJECTDIR}/utils-3rdparty/utils.o: utils-3rdparty/utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}/utils-3rdparty
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils-3rdparty/utils.o utils-3rdparty/utils.cpp
 
 # Subprojects
 .build-subprojects:

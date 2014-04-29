@@ -13,8 +13,8 @@ CND_BUILDDIR=build
 CND_DLIB_EXT=so
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/barcodedetectionhough
-OUTPUT_BASENAME=barcodedetectionhough
+OUTPUT_PATH=barcodedetection
+OUTPUT_BASENAME=barcodedetection
 PACKAGE_TOP_DIR=barcodedetectionhough/
 
 # Functions

@@ -82,7 +82,7 @@ void HoughTransform::store_location(int t, int r, int x, int y)
     }
     else
     {
-        points s;
+        houghpoints s;
         s.push_back(img_point);
         _locations[h_point] = s;
     }
@@ -140,7 +140,7 @@ cv::Size HoughTransform::get_hough_space_size()
     return hough_space.size();
 }
 
-HoughTransform::points HoughTransform::get_points_at(int theta, int rho)
+HoughTransform::houghpoints HoughTransform::get_points_at(int theta, int rho)
 {
     return _locations[cv::Point2i(rho, theta)];
 }

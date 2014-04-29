@@ -1,4 +1,3 @@
-
 Requirements
 ----
 
@@ -49,7 +48,6 @@ Command line arguments:
 
 	-w or --whitelist: specity a text file containing the image names (one per line) you want to process from the dataset directory.
 			   Image names that do not match any element of the list are skipped.
-
 
 Dataset:
 	The default dataset directory contains some images.

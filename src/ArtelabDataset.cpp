@@ -30,7 +30,7 @@ namespace artelab
 
     void ArtelabDataset::load_dataset()
     {
-        const string orig_suffix = ".jpgbarcodeOrig.png";
+        const string orig_suffix = ".png";
         const string detection_suffix = ".png";
         DirectoryInfo content_dir = _base_dir.directoryCombine("Original");
         DirectoryInfo detection_dir = _base_dir.directoryCombine("Detection");

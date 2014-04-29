@@ -33,7 +33,7 @@ If you encounter any problem check if the required libraries are installed in yo
 Usage
 ----
 
-Type './barcodedetection help' to print the help message.
+Type './barcodedetection --help' to print the help message.
 
 Command line arguments:
 	-d or --dataset: full path of the directory that contains the dataset. It must constain two subdirectories: 
@@ -49,6 +49,31 @@ Command line arguments:
 			   Image names that do not match any element of the list are skipped.
 
 
+Dataset:
+	The default dataset directory contains some images.
+	You can download the full dataset at http://artelab.dicom.uninsubria.it/downloads.html
+
+Example:
+
+	> mkdir output
+	> make clean && make
+	> ./barcodedetection -s -o output
+	
+	In the directory 'output' you will also find the intermediate images.
+
+
+Output
+----
+
+For each image, the program prints the detected angle, the jaccard overlap accuracy and the time employed.
+When it ends, it returns the average overlap accuracy, the average time and a set of 10 values.
+We set a varying threshold from 0.1 to 1 with step 0.1 (therefore 10 thresholds).
+For each threshold, these values are the ratio of images whose detection bounding boxes have an overlap accuracy greater or equal the threshold.
+So, i.e., the fifth value represents the percentage of images that obtain an accuracy greater then 0.5.
+
+Jaccard accuracy is the standard union over intersection ratio.
+
+
 Acknowledgements and license
 ----
 
@@ -58,5 +83,14 @@ If you use this code, part of it or the dataset, please cite the following refer
 
 	Robust Angle Invariant 1D Barcode Detection
 	Alessandro Zamberletti, Ignazio Gallo and Simone Albertini
-	The 2nd Asian Conference on Pattern Recognition (ACPR)
-	Okinaja, Japan
+	The 2nd Asian Conference on Pattern Recognition (ACPR), 2013
+	Okinawa, Japan
+
+
+Bibtex:
+	@inproceedings{zamberletti2013acpr,
+		author = "Alessandro Zamberletti and Ignazio Gallo and Simone Albertini",
+		title = "Robust Angle Invariant 1D Barcode Detection",
+		booktitle = "The 2nd Asian Conference on Pattern Recognition (ACPR)",
+		year = "2013"
+	}

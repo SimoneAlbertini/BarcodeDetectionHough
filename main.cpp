@@ -50,7 +50,7 @@ int main(int argc, char** argv)
         ("dataset,d",       po::value<string>()->default_value(datasetdir),      "dataset directory")
         ("show,s",                                                               "show intermediate images")
         ("output,o",        po::value<string>()->default_value(outdir),          "if specified, intermediate images are saved there")
-        ("whitelist,w",     po::value<string>()->default_value(whitelist),       "if specified, intermediate images are saved there")
+        ("whitelist,w",     po::value<string>()->default_value(whitelist),       "list of image names to process")
     ;
 
     po::variables_map vm;
@@ -64,6 +64,7 @@ int main(int argc, char** argv)
     }
     
     datasetdir = vm["dataset"].as<string>();
+    outdir = vm["output"].as<string>();
     whitelist = vm["whitelist"].as<string>();
     display = vm.count("show") > 0;
     

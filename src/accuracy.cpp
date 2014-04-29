@@ -41,7 +41,7 @@ namespace artelab
         res.jaccard = jaccard_overlap(mask, truth);
         res.time = tc.get_seconds();
         for(int i=0; i < 10; i++)
-            res.jaccard_hist.at<float>(i, 0) = jaccard_overlap(mask, truth) > (i+1)/10.0? 1 : 0;
+            res.jaccard_hist.at<float>(i, 0) = res.jaccard >= (i+1)/10.0? 1 : 0;
 
         return res;
     }

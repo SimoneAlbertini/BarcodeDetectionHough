@@ -77,8 +77,6 @@ int main(int argc, char** argv)
     dataset.load_dataset();
     if(!quiet) cout << "Dataset Loaded: " << dataset.count() << " Images" << endl;
     
-    MLP mlp; mlp.load(netfile);
-    
     cv::Size win_size(61, 3);
     
     std::map<string, barcodeimage> images = dataset.get_barcodes();

@@ -61,7 +61,7 @@ Example:
 	> make clean && make
 	> ./barcodedetection -s -o output
 	
-	In the directory 'output' you will also find the intermediate images.
+In the directory 'output' you will also find the intermediate images.
 
 
 Output

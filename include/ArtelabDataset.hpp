@@ -3,6 +3,7 @@
 #define	BARCODEDATASET_HPP
 
 #include <opencv2/core/core.hpp>
+#include <map>
 #include "DirectoryInfo.hpp"
 
 namespace artelab

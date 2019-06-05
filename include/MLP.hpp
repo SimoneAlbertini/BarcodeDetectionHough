@@ -8,7 +8,7 @@
 namespace artelab
 {
 
-    class MLP 
+    class MLP
     {
     public:
 
@@ -29,4 +29,3 @@ namespace artelab
 }
 
 #endif	/* MLP_H */
-

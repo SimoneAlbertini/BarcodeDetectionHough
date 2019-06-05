@@ -11,13 +11,13 @@ using std::vector;
 
 namespace artelab
 {
-    
-    ArtelabDataset::ArtelabDataset(DirectoryInfo base) 
+
+    ArtelabDataset::ArtelabDataset(DirectoryInfo base)
     {
         _base_dir = base;
     }
 
-    ArtelabDataset::ArtelabDataset(const ArtelabDataset& orig) 
+    ArtelabDataset::ArtelabDataset(const ArtelabDataset& orig)
     {
         *this = orig;
     }

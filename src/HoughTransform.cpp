@@ -39,7 +39,7 @@ namespace artelab
     HoughTransform::HoughTransform()
     {
         init();
-    } 
+    }
 
     HoughTransform::HoughTransform(cv::Mat image, bool keep_loc)
     {
@@ -53,7 +53,7 @@ namespace artelab
         delete [] cos_cache;
     }
 
-    HoughTransform::HoughTransform(const HoughTransform& orig) 
+    HoughTransform::HoughTransform(const HoughTransform& orig)
     {
         *this = orig;
     }
@@ -98,7 +98,7 @@ namespace artelab
             int hough_height = hough_space.cols / 2;
             r += hough_height;
 
-            if (r < 0 || r >= hough_height*2) 
+            if (r < 0 || r >= hough_height*2)
                 continue;
 
             hough_space.at<uint>(t, r)++;

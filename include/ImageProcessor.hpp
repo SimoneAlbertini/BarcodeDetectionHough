@@ -10,7 +10,7 @@
 
 namespace artelab
 {
-    class ImageProcessor 
+    class ImageProcessor
     {
     public:
 
@@ -29,11 +29,10 @@ namespace artelab
         DirectoryInfo _output;
         bool _show;
         bool _quiet;
-        
+
         void show_image(std::string name, cv::Mat img);
     };
 
 }
-    
-#endif	/* IMAGEPROCESSOR_HPP */
 
+#endif	/* IMAGEPROCESSOR_HPP */

@@ -9,11 +9,11 @@
 namespace artelab
 {
 
-    class ArtelabDataset 
+    class ArtelabDataset
     {
     public:
 
-        typedef struct 
+        typedef struct
         {
             FileInfo original;
             FileInfo detection_gt;
@@ -38,4 +38,3 @@ namespace artelab
 }
 
 #endif	/* BARCODEDATASET_HPP */
-

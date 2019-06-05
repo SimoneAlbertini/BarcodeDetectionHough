@@ -16,18 +16,18 @@ namespace artelab
 
     MLP::~MLP() {}
 
-    void MLP::load(std::string file) 
+    void MLP::load(std::string file)
     {
 
         _model = cv::Algorithm::load<cv::ml::ANN_MLP>(file.c_str());
     }
 
-    void MLP::save(std::string file) 
+    void MLP::save(std::string file)
     {
         _model->save(file.c_str());
     }
 
-    int MLP::train(const cv::Mat& patterns_in, const cv::Mat& targets, const int max_iter) 
+    int MLP::train(const cv::Mat& patterns_in, const cv::Mat& targets, const int max_iter)
     {
         CV_Assert(patterns_in.rows == targets.rows);
 

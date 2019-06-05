@@ -8,7 +8,7 @@
 namespace artelab
 {
 
-    class HoughTransform 
+    class HoughTransform
     {
     public:
 
@@ -57,4 +57,3 @@ namespace artelab
 }
 
 #endif	/* HOUGHTRANSFORM_HPP */
-

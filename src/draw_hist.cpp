@@ -6,10 +6,10 @@
 
 namespace artelab
 {
-    
+
     cv::Mat draw_histogram_on_image(cv::Mat hist, cv::Mat img, cv::Scalar color, int direction, int thick, int hist_height)
     {
-        cv::Mat image; 
+        cv::Mat image;
         img.copyTo(image);
         if(img.type() == CV_8U)
             cv::cvtColor(image, image, CV_GRAY2BGR);
@@ -38,6 +38,6 @@ namespace artelab
         }
         return image;
     }
-    
-    
+
+
 }

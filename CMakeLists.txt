@@ -19,5 +19,7 @@ add_library(BarcodeLibrary SHARED ${SOURCES})
 add_library(Barcode3rdParty SHARED ${SOURCES_3RD_PARTY})
 
 add_executable (barcodedetection main.cpp)
+add_executable (barcodeonmovie main_movie.cpp)
 
 target_link_libraries(barcodedetection BarcodeLibrary Barcode3rdParty ${OpenCV_LIBS} ${Boost_LIBRARIES})
+target_link_libraries(barcodeonmovie BarcodeLibrary Barcode3rdParty ${OpenCV_LIBS} ${Boost_LIBRARIES})

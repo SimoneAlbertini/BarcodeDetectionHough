@@ -49,6 +49,7 @@ int main(int argc, char** argv)
     desc.add_options()
         ("help", "print help")
         ("dataset,d",       po::value<string>()->default_value(datasetdir),      "dataset directory")
+        ("netfile,n",       po::value<string>()->default_value(netfile),         "trained network file")
         ("output,o",        po::value<string>()->default_value(outdir),          "if specified, intermediate images are saved there")
         ("whitelist,w",     po::value<string>()->default_value(whitelist),       "list of image names to process")
         ("show,s",                                                               "show intermediate images")
@@ -70,6 +71,7 @@ int main(int argc, char** argv)
     whitelist = vm["whitelist"].as<string>();
     display = vm.count("show") > 0;
     quiet = vm.count("quiet") > 0;
+    netfile = vm["netfile"].as<string>();
 
     DirectoryInfo dataset_dir(datasetdir);
 

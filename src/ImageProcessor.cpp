@@ -174,6 +174,20 @@ namespace artelab
     img_bb.setTo(cv::Scalar(0,0,255), bb);
   }
 
+  std::vector<cv::Rect> ImageProcessor::getRectangles(cv::Mat img_hist_projection, double angle){
+    // crop image with projected mask and threshold
+    cv::Mat bb_mask;
+    bb_mask = artelab::rotate_image(img_hist_projection, -angle);
+    double min, max;
+    cv::minMaxLoc(bb_mask, &min, &max);
+    cv::threshold(bb_mask, bb_mask, int(0.3*max), 1, cv::THRESH_BINARY);
+    cv::Mat img_cropped;
+
+    // draw bounding boxes
+    std::vector<cv::Rect> rects = object_rectangles(img_hist_projection, int(0.3*max));
+    return rects;
+  }
+
   results ImageProcessor::process(std::string name, ArtelabDataset::barcode_image bcimage)
   {
     cv::Mat img_orig = cv::imread(bcimage.original.fullName(), CV_LOAD_IMAGE_COLOR);
@@ -185,20 +199,11 @@ namespace artelab
     double angle;
     cv::Mat img_hist_projection = processSimple(img_orig, angle);
 
-    // crop image with projected mask and threshold
-    cv::Mat bb_mask;
-    bb_mask = artelab::rotate_image(img_hist_projection, -angle);
-    double min, max;
-    cv::minMaxLoc(bb_mask, &min, &max);
-    cv::threshold(bb_mask, bb_mask, int(0.3*max), 1, cv::THRESH_BINARY);
-    cv::Mat img_cropped;
-    if(_show) img_orig.copyTo(img_cropped, bb_mask);
-
-    // draw bounding boxes
-    std::vector<cv::Rect> rects = object_rectangles(img_hist_projection, int(0.3*max));
     cv::Mat img_bb;
     img_orig.copyTo(img_bb);
     cv::Mat img_detection_mask = cv::Mat::zeros(img_orig.size(), CV_8U);
+
+    std::vector<cv::Rect> rects = getRectangles(img_hist_projection, angle);
     foreach(cv::Rect r, rects)
       {
         drawRectangles(img_bb,r, angle);

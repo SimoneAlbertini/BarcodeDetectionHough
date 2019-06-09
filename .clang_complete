@@ -1,0 +1,4 @@
+-DBarcode3rdParty_EXPORTS
+-DBarcodeLibrary_EXPORTS
+-I/home/kurohi/Progs/BarcodeDetectionHough/include
+-I/home/kurohi/Progs/BarcodeDetectionHough/utils-3rdparty

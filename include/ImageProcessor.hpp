@@ -23,6 +23,7 @@ namespace artelab
     results process(std::string imagename, ArtelabDataset::barcode_image barcode);
     cv::Mat processSimple(cv::Mat img, double& angle);
     void drawRectangles(cv::Mat& img_bb, cv::Rect rect, double angle);
+    std::vector<cv::Rect> getRectangles(cv::Mat img_hist_projection, double angle);
 
 
   private:

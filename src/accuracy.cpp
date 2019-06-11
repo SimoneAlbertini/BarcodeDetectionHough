@@ -4,7 +4,7 @@
 
 namespace artelab
 {
-    
+
     double jaccard_overlap(cv::Mat mask, cv::Mat truth)
     {
         CV_Assert(mask.type() == CV_8U);
@@ -45,6 +45,6 @@ namespace artelab
 
         return res;
     }
-    
-    
+
+
 }

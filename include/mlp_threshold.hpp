@@ -9,10 +9,9 @@
 
 namespace artelab
 {
-    
+
     cv::Mat threshold_mlp(MLP& nnetwork, cv::Size win_size, HoughTransform& hough);
 
 }
 
 #endif	/* MAKE_PATTERNS_HPP */
-

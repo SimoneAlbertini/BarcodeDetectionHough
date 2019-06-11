@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/ArtelabDataset.o \
 	${OBJECTDIR}/src/HoughTransform.o \
-	${OBJECTDIR}/src/ImageProcessor.o \
 	${OBJECTDIR}/src/MLP.o \
 	${OBJECTDIR}/src/accuracy.o \
 	${OBJECTDIR}/src/detection.o \
@@ -48,7 +47,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/utils-3rdparty/DirectoryInfo.o \
 	${OBJECTDIR}/utils-3rdparty/FileInfo.o \
 	${OBJECTDIR}/utils-3rdparty/TimeCounter.o \
-	${OBJECTDIR}/utils-3rdparty/utils.o
+	${OBJECTDIR}/utils-3rdparty/utils.o \
+	${OBJECTDIR}/src/ImageProcessor.o
 
 
 # C Compiler Flags

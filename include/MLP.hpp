@@ -8,7 +8,7 @@
 namespace artelab
 {
 
-    class MLP 
+    class MLP
     {
     public:
 
@@ -23,10 +23,9 @@ namespace artelab
         void predict(const cv::Mat& samples, cv::Mat& outPredictions);
 
     private:
-        cv::NeuralNet_MLP _model;
+        cv::Ptr<cv::ml::ANN_MLP> _model;
     };
 
 }
 
 #endif	/* MLP_H */
-

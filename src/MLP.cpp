@@ -8,47 +8,52 @@ namespace artelab
 
     MLP::MLP(cv::Mat layers)
     {
-        _model.create(layers, CvANN_MLP::SIGMOID_SYM, 1, 1);
+      std::cout<<layers<<std::endl;
+        _model = cv::ml::ANN_MLP::create();
+        _model->setLayerSizes(layers);
+        _model->setActivationFunction(cv::ml::ANN_MLP::ActivationFunctions::SIGMOID_SYM);
     }
 
     MLP::~MLP() {}
 
-    void MLP::load(std::string file) 
+    void MLP::load(std::string file)
     {
-        _model.load(file.c_str());
+
+        _model = cv::Algorithm::load<cv::ml::ANN_MLP>(file.c_str());
     }
 
-    void MLP::save(std::string file) 
+    void MLP::save(std::string file)
     {
-        _model.save(file.c_str());
+        _model->save(file.c_str());
     }
 
-    int MLP::train(const cv::Mat& patterns_in, const cv::Mat& targets, const int max_iter) 
+    int MLP::train(const cv::Mat& patterns_in, const cv::Mat& targets, const int max_iter)
     {
         CV_Assert(patterns_in.rows == targets.rows);
 
-        CvTermCriteria criteria;
-        criteria.max_iter = max_iter;
+        cv::TermCriteria criteria;
+        criteria.maxCount = max_iter;
         criteria.epsilon = 0.001f;
-        criteria.type = CV_TERMCRIT_ITER | CV_TERMCRIT_EPS;
+        criteria.type = cv::TermCriteria::Type::COUNT | cv::TermCriteria::Type::EPS;
 
-        cv::ANN_MLP_TrainParams params;
-        params.train_method = CvANN_MLP_TrainParams::RPROP;
-        params.bp_dw_scale = 0.1f;
-        params.bp_moment_scale = 0.1f;
-        params.rp_dw0 = 0.1f;
-        params.rp_dw_plus = 1.2f;
-        params.rp_dw_minus = 0.5f;
-        params.rp_dw_min = FLT_EPSILON;
-        params.rp_dw_max = 50;
-        params.term_crit = criteria;
+        _model->setTrainMethod(cv::ml::ANN_MLP::TrainingMethods::RPROP);
+        _model->setBackpropMomentumScale(0.1f);
+        _model->setBackpropWeightScale(0.1f);
+        _model->setRpropDW0(0.1f);
+        _model->setRpropDWMax(50);
+        _model->setRpropDWMin(FLT_EPSILON);
+        _model->setRpropDWMinus(0.5f);
+        _model->setRpropDWPlus(1.2f);
+        _model->setTermCriteria(criteria);
 
-        int iterations = _model.train(patterns_in, targets, cv::Mat(), cv::Mat(), params);
+	//TODO: might have to change to COL_SAMPLE
+    cv::Ptr<cv::ml::TrainData> training_data = cv::ml::TrainData::create(patterns_in, cv::ml::SampleTypes::ROW_SAMPLE, targets);
+        int iterations = _model->train(training_data);
         return iterations;
     }
 
-    void MLP::predict(const cv::Mat& samples, cv::Mat& outPredictions) 
+    void MLP::predict(const cv::Mat& samples, cv::Mat& outPredictions)
     {
-        _model.predict(samples, outPredictions);
+        _model->predict(samples, outPredictions);
     }
 }

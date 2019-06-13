@@ -1,9 +1,9 @@
 Requirements
 ----
 
-° Any C++08 compiler (actually used g++ 4.8.1)
-° OpenCv 2.4.* with Qt 4 support enabled
-° Boost 1.53 or more recent builds
+° Any C++08 compiler (actually used g++ 9.1.0)
+° OpenCv 3.4.* with Qt 4 support enabled
+° Boost 1.65 or more recent builds
 
 
 
@@ -24,6 +24,7 @@ In order to facilitate it, the shared library linked by the makefile are:
 ° opencv_highgui
 ° opencv_ml
 ° opencv_imgproc
+° opencv_imgcodecs
 
 If you encounter any problem check if the required libraries are installed in your system.
 

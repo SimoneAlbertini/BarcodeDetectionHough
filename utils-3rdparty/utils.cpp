@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <sys/stat.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "utils.hpp"
 
@@ -26,10 +27,11 @@ namespace artelab
         return split(s, delim, elems);
     }
     
+    //Changed the file existance checking to use stat, as it is at least 2x faster
     bool file_exists(std::string filename)
     {
-        std::ifstream ifile(filename.c_str());
-        return ifile;
+	struct stat buffer;
+	return (stat(filename.c_str(), &buffer)==0);
     }
     
     cv::Mat rotate_image(cv::Mat img, int angle, int size_factor)

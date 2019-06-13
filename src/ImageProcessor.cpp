@@ -26,7 +26,7 @@ namespace artelab
         _output = DirectoryInfo(outdir);
     }
 
-    ImageProcessor::~ImageProcessor() 
+    ImageProcessor::~ImageProcessor()
     { }
 
     ImageProcessor& ImageProcessor::show(bool b)
@@ -41,7 +41,7 @@ namespace artelab
         return *this;
     }
 
-    
+
     void ImageProcessor::show_image(std::string name, cv::Mat img)
     {
         if(_show)
@@ -50,7 +50,7 @@ namespace artelab
             cv::imshow(name, img);
         }
     }
-    
+
     void draw_lines_at_angle(double angle, std::vector<cv::Vec4i> lines, cv::Mat& image, int tolerance=2)
     {
         cv::Scalar color = image.channels() == 1? cv::Scalar(255) : cv::Scalar(0,0,255);
@@ -68,7 +68,7 @@ namespace artelab
             }
         }
     }
-    
+
     void smooth_histogram(cv::Mat& hist, int kernel_size, int iterations)
     {
         CV_Assert(hist.cols == 1);
@@ -104,7 +104,7 @@ namespace artelab
             cv::threshold(col_hist, col_hist, col_hist_mean, 0, cv::THRESH_TOZERO);
         }
     }
-    
+
     cv::Mat project_histograms(cv::Mat row_hist, cv::Mat col_hist)
     {
         CV_Assert(row_hist.type() == CV_32F);
@@ -119,7 +119,7 @@ namespace artelab
 
         return out;
     }
-    
+
     results ImageProcessor::process(std::string name, ArtelabDataset::barcode_image bcimage)
     {
         cv::Mat img_orig = cv::imread(bcimage.original.fullName(), CV_LOAD_IMAGE_COLOR);
@@ -131,6 +131,7 @@ namespace artelab
         // Apply canny
         cv::Mat img_canny;
         cv::GaussianBlur(img_orig, img_canny, cv::Size(17,17), 2);
+        cv::cvtColor(img_canny, img_canny, cv::COLOR_RGB2GRAY);
         cv::Canny(img_canny, img_canny, 60, 100, 3);
 
         // Get hough transform
@@ -164,7 +165,7 @@ namespace artelab
         cv::Mat row_hist, col_hist,feature_with_hist_smooth;
         histograms_from_hough_lines(feature_image, row_hist, col_hist);
         feature_with_hist_smooth = draw_histogram_on_image(row_hist, feature_image, cv::Scalar(0,0,255), HIST_ROW);
-        feature_with_hist_smooth = draw_histogram_on_image(col_hist, feature_with_hist_smooth, cv::Scalar(0,255,0), HIST_COL);  
+        feature_with_hist_smooth = draw_histogram_on_image(col_hist, feature_with_hist_smooth, cv::Scalar(0,255,0), HIST_COL);
 
         // project histograms
         cv::Mat img_hist_projection = project_histograms(row_hist, col_hist);
@@ -180,7 +181,7 @@ namespace artelab
 
         // draw bounding boxes
         std::vector<cv::Rect> rects = object_rectangles(img_hist_projection, int(0.3*max));
-        cv::Mat img_bb; 
+        cv::Mat img_bb;
         img_orig.copyTo(img_bb);
         cv::Mat img_detection_mask = cv::Mat::zeros(img_orig.size(), CV_8U);
         foreach(cv::Rect r, rects)
@@ -202,7 +203,7 @@ namespace artelab
 
         // Measuring accuracy
         results res = measure_results(img_detection_mask, img_truth, tc);
-        
+
         // verbose output
         if(!_quiet)
         {
@@ -211,7 +212,7 @@ namespace artelab
             std::cout << std::setw(20) << std::left << ("Accuracy: " + tostring(res.jaccard));
             std::cout << std::setw(6) << std::left << ("Time: " + tostring(res.time)) << std::endl;
         }
-        
+
         // show results
         show_image("Prob Hough", line_image);
         show_image("histograms smooth", feature_with_hist_smooth);
@@ -263,7 +264,7 @@ namespace artelab
             ss.str(""); ss.clear(); ss << name << "_canny.png";
             cv::imwrite(_output.fileCombine(ss.str()).fullName(), img_canny);
         }
-        
+
         return res;
     }
 

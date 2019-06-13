@@ -3,11 +3,12 @@
 #define	HOUGHTRANSFORM_HPP
 
 #include <opencv2/core/core.hpp>
+#include <map>
 
 namespace artelab
 {
 
-    class HoughTransform 
+    class HoughTransform
     {
     public:
 
@@ -56,4 +57,3 @@ namespace artelab
 }
 
 #endif	/* HOUGHTRANSFORM_HPP */
-

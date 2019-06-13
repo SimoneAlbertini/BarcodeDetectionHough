@@ -3,7 +3,7 @@
 
 namespace artelab
 {
-    
+
     cv::Mat get_histogram(cv::Mat image, int hist_type, int type)
     {
         CV_Assert(image.type() == CV_8U);
@@ -33,7 +33,7 @@ namespace artelab
 
         return hist;
     }
-    
+
     int max_angle_hist(cv::Mat hist)
     {
         CV_Assert(hist.cols == 1);
@@ -52,5 +52,5 @@ namespace artelab
         }
         return angle;
     }
-    
+
 }

@@ -8,9 +8,9 @@
 namespace artelab
 {
 
-    typedef struct 
-    { 
-        double jaccard; 
+    typedef struct
+    {
+        double jaccard;
         cv::Mat jaccard_hist;
         double time;
     } results;
@@ -22,4 +22,3 @@ namespace artelab
 }
 
 #endif	/* ACCURACY_HPP */
-
